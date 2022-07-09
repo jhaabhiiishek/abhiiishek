@@ -165,8 +165,8 @@
     color: rgba(34, 185, 250, 0.835);
 }
 #desc{
-    font-weight: 800;
-    font-size: larger;
+    font-weight: 600;
+    font-size: x-large;
     margin-top: 48px;
 }
 
@@ -382,6 +382,7 @@
     height: 92vh;
     display: flex;
     flex-direction: row;
+    background-image:url("./images/black-mamba.png");
 }
 
 #contact-text{
