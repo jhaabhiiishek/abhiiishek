@@ -445,13 +445,13 @@
     display: inline;
     width: 97.50%;
     margin-top: 5%;
-    padding: 1%;
+    padding: 1% 1% 1% 2.5%;
     border-radius: 3px;
 }
 #form-internal textarea{
     /* background-color: blue; */
     font-size: x-large;
-    padding: 1%;
+    padding: 1% 1% 1% 2.5%;
     width: 97.5%;
     border-radius: 3px;
     height: 150px;
@@ -541,6 +541,9 @@
     #icon-div{
         width: 90%;
         margin-right: 5%;
+    }
+    .input-text{
+        height: 6vh;
     }
     #resume{
         width: auto;
