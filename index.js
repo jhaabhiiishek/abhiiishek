@@ -35,6 +35,7 @@ async function run(a){
 app.post("/formSubmit",(req,res)=>{
     if(req.body.name !=""||req.body.email!=""||req.body.subject!=""||req.body.message!=""){
         run(req.body);
+        alert("form submitted")
     }
     res.sendStatus(200)
 })
