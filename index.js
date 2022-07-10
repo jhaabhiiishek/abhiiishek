@@ -33,7 +33,9 @@ async function run(a){
 }
 
 app.post("/formSubmit",(req,res)=>{
-    run(req.body);
+    if(req.body.name !=""||req.body.email!=""||req.body.subject!=""||req.body.message!=""){
+        run(req.body);
+    }
     res.sendStatus(200)
 })
 
