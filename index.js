@@ -31,7 +31,7 @@ async function run(a){
 
         
         let transporter = nodemailer.createTransport({
-            service:"Outlook365",
+            service:"gmail",
             auth:{
                 user:process.env.LMNTOPQ,
                 pass:process.env.WHAT,
@@ -39,12 +39,12 @@ async function run(a){
             tls:{
                 rejectUnauthorized:false,
             }
-        })        
+        })
         let mailOptions = {
             from:process.env.LMNTOPQ,
             to:process.env.LFMNO,
             subject:subject,
-            text:"Name = "+name+" email = "+email+" messages from person: "+message
+            text:"Name = "+name+" email = "+email+" message: "+message
         }
         
         transporter.sendMail(mailOptions,function(err, success){
@@ -66,6 +66,6 @@ app.post("/formSubmit",(req,res)=>{
     res.sendStatus(200)
 })
 
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT||3000,()=>{
     console.log("Server Running")
 })
