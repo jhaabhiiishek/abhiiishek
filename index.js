@@ -11,57 +11,57 @@ app.use(bodyParser.raw());
 
 const url = process.env.MONGO;
 
-app.use(express.static(path.join(__dirname+"/public")))
+// app.use(express.static(path.join(__dirname+"/public")))
 
-async function run(a){
-    try{ 
-        const client = new MongoClient(url);
-        const database = client.db("portfolio");
-        const forms = database.collection("forms");
-        const{name,email,subject,message} = a;
-        const formEntry = {
-            name: name,
-            email: email,
-            subject: subject,
-            message: message
-        };
-        const result =await forms.insertOne(formEntry);
-        console.log(`A document was inserted with the _id: ${result.insertedId}`);
-        await client.close();
 
-        
-        let transporter = nodemailer.createTransport({
-            service:"gmail",
-            auth:{
-                user:process.env.LMNTOPQ,
-                pass:process.env.WHAT,
-            },
-            tls:{
-                rejectUnauthorized:false,
-            }
-        })
-        let mailOptions = {
-            from:process.env.LMNTOPQ,
-            to:process.env.LFMNO,
-            subject:subject,
-            text:"Name = "+name+" email = "+email+" message: "+message
-        }
-        
-        transporter.sendMail(mailOptions,function(err, success){
-            if(err){
-                console.log(err)
-            }else{
-                console.log("Email sent successfully!!")
-            }
-        })
-    }finally{
-        console.log("done - and server connection closed")
-    }
-}
-
-app.post("/formSubmit",(req,res)=>{
+app.post("/formSubmit",async (req,res)=>{
+    res.header("Access-Control-Allow-Origin: *");
+    res.header("Access-Control-Allow-Headers: POST,GET,OPTIONS,PUT,DELETE");
+    res.header("Access-Control-Allow-Headers: Content-Type,X-Auth-Token,Origin,Authorization");
     if(req.body.name !=""||req.body.email!=""||req.body.subject!=""||req.body.message!=""){
-        run(req.body);
+        try{
+            const client = new MongoClient(url);
+            const database = client.db("portfolio");
+            const forms = database.collection("forms");
+            const{name,email,subject,message} = req.body;
+            const formEntry = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            };
+            const result =await forms.insertOne(formEntry);
+            console.log(`A document was inserted with the _id: ${result.insertedId}`);
+            await client.close();
+        
+                
+            let transporter = nodemailer.createTransport({
+                service:"gmail",
+                auth:{
+                    user:process.env.LMNTOPQ,
+                    pass:process.env.WHAT,
+                },
+                tls:{
+                    rejectUnauthorized:false,
+                }
+            })
+            let mailOptions = {
+                from:process.env.LMNTOPQ,
+                to:process.env.LFMNO,
+                subject:subject,
+                text:"Name = "+name+" email = "+email+" message: "+message
+            }
+            
+            transporter.sendMail(mailOptions,function(err, success){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log("Email sent successfully!!")
+                }
+            })
+        }finally{
+            console.log("done - and server connection closed")
+        }
     }
     res.sendStatus(200)
 })
