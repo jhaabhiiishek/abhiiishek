@@ -11,13 +11,10 @@ app.use(bodyParser.raw());
 
 const url = process.env.MONGO;
 
-// app.use(express.static(path.join(__dirname+"/public")))
+app.use(express.static(path.join(__dirname+"/build")))
 
 
 app.post("/formSubmit",async (req,res)=>{
-    res.header("Access-Control-Allow-Origin: *");
-    res.header("Access-Control-Allow-Headers: POST,GET,OPTIONS,PUT,DELETE");
-    res.header("Access-Control-Allow-Headers: Content-Type,X-Auth-Token,Origin,Authorization");
     if(req.body.name !=""||req.body.email!=""||req.body.subject!=""||req.body.message!=""){
         try{
             const client = new MongoClient(url);
