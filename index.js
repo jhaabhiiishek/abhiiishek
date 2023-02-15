@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
-const url = process.env.MONGO;
+const url = process.env.MONGO
 
 app.use(express.static(path.join(__dirname+"/build")))
 
@@ -17,7 +17,9 @@ app.use(express.static(path.join(__dirname+"/build")))
 app.post("/formSubmit",async (req,res)=>{
     if(req.body.name !=""||req.body.email!=""||req.body.subject!=""||req.body.message!=""){
         try{
+            console.log("Trying...");
             const client = new MongoClient(url);
+            console.log("Client connection established...")
             const database = client.db("portfolio");
             const forms = database.collection("forms");
             const{name,email,subject,message} = req.body;
