@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const {MongoClient} = require('mongodb');
 const nodemailer= require('nodemailer');
 const path = require("path");
+const cors = require('cors');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
@@ -12,6 +13,10 @@ app.use(bodyParser.raw());
 const url = process.env.MONGO
 
 app.use(express.static(path.join(__dirname+"/build")))
+
+app.use(cors({
+    origin:true
+}))
 
 const client = new MongoClient(url);
 console.log("Client connection established...")
