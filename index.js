@@ -56,6 +56,8 @@ app.post("/formSubmit",async (req,res)=>{
                 text:"Name = "+name+" email = "+email+" message: "+message
             }
             
+            const success = await new Promise(() => {
+                // send mail
                 transporter.sendMail(mailOptions,function(err, success){
                     if(err){
                         console.log(err)
@@ -63,6 +65,7 @@ app.post("/formSubmit",async (req,res)=>{
                         console.log("Email sent successfully!!")
                     }
                 })
+            })
 
             
         }finally{
