@@ -26,7 +26,6 @@ const forms = database.collection("forms");
 app.post("/formSubmit",async (req,res)=>{
     if(req.body.name !=""||req.body.email!=""||req.body.subject!=""||req.body.message!=""){
         try{
-            console.log("Trying...");
             const{name,email,subject,message} = req.body;
             const formEntry = {
                 name: name,
@@ -35,7 +34,6 @@ app.post("/formSubmit",async (req,res)=>{
                 message: message
             };
             const result =await forms.insertOne(formEntry);
-            console.log(`A document was inserted with the _id: ${result.insertedId}`);
             await client.close();
         
                 
@@ -49,13 +47,7 @@ app.post("/formSubmit",async (req,res)=>{
                     rejectUnauthorized:false,
                 }
             })
-            let mailOptions = {
-                from:process.env.LMNTOPQ,
-                to:process.env.LFMNO,
-                subject:subject,
-                text:"Name = "+name+" email = "+email+" message: "+message
-            }
-            
+
             const success = await new Promise(() => {
                 // send mail
                 transporter.sendMail(mailOptions,function(err, success){
