@@ -56,13 +56,17 @@ app.post("/formSubmit",async (req,res)=>{
                 text:"Name = "+name+" email = "+email+" message: "+message
             }
             
-            transporter.sendMail(mailOptions,function(err, success){
-                if(err){
-                    console.log(err)
-                }else{
-                    console.log("Email sent successfully!!")
-                }
+            const success = await new Promise(() => {
+                // send mail
+                transporter.sendMail(mailOptions,function(err, success){
+                    if(err){
+                        console.log(err)
+                    }else{
+                        console.log("Email sent successfully!!")
+                    }
+                })
             })
+            
         }finally{
             console.log("done - and server connection closed")
         }
