@@ -47,7 +47,23 @@ app.post("/formSubmit",async (req,res)=>{
                     rejectUnauthorized:false,
                 }
             })
-
+            let mailOptions = {
+                from:process.env.LMNTOPQ,
+                to:process.env.LFMNO,
+                subject:subject,
+                text:"Name = "+name+" email = "+email+" message: "+message
+            }
+            await new Promise((resolve, reject) => {
+                transporter.verify(function (error, success) {
+                    if (error) {
+                        console.log(error);
+                        reject(error);
+                    } else {
+                        console.log("Server ready");
+                        resolve(success);
+                    }
+                });
+            });
             const success = await new Promise(() => {
                 // send mail
                 transporter.sendMail(mailOptions,function(err, success){
