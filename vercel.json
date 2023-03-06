@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "name": "abhiiishek-backend",
+    "builds": [
+        { "src": "script.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+        { "src": "/(.*)", "dest": "/index.js" }
+    ],
+    "env": {
+        "MONGO": "mongodb+srv://admin-abhi:%40bhI1009@cluster0.s2kqbut.mongodb.net/?retryWrites=true&w=majority",
+        "WHAT": "pcrglkzufvvnycyd",
+        "LMNTOPQ": "abhiiishek.jha@gmail.com",
+        "LFMNO": "abhi10092003@gmail.com"
+    }
+}
